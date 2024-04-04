@@ -7,8 +7,11 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'tester', url: 'https://github.com/nidhinkanakkaparambu/project-maneuver.git']])
                  }
         }
-
-    stages {
         stage('Build') {
-steps {
-git branch: 'main', credentialsId: 'tester', url: 'https://github.com/nidhinkanakkaparambu/project-maneuver.git'
+            steps {
+                git branch: 'main', credentialsId: 'tester', url: 'https://github.com/nidhinkanakkaparambu/project-maneuver.git'
+                bat 'python ShopifyAPI.py'
+              }
+        }
+             }
+        }

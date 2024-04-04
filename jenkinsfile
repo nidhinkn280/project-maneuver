@@ -1,17 +1,22 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Checkout') {
+        stage('Stage 1') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'tester', url: 'https://github.com/nidhinkanakkaparambu/project-maneuver.git']])
-                 }
+                script {
+                    // Execute first Python script
+                    sh 'python ShopifyAPI.py'
+                }
+            }
         }
-        stage('Build') {
+        stage('Stage 2') {
             steps {
-                git branch: 'main', credentialsId: 'tester', url: 'https://github.com/nidhinkanakkaparambu/project-maneuver.git'
-                bat 'python ShopifyAPI.py'
-              }
+                script {
+                    // Execute second Python script
+                    sh 'python Google Sheets.py'
+                }
+            }
         }
-             }
-        }
+    }
+}
